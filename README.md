@@ -2,7 +2,7 @@
 
 Animated walima invitation, served with GitHub Pages.
 
-- `index.html`: the Jharokha invitation (jaali doors, arch-framed card with illustrated map, "How it started" notebook)
+- `index.html`: the Jharokha invitation (jaali doors, arch-framed card with illustrated map)
 - `walima.ics`: calendar file used on iPhone and iPad
 - `preview.jpg`: link preview image for WhatsApp and other apps
 - `couple.jpg`, `fonts/`, `favicon.svg`: assets
