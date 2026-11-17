@@ -80,6 +80,11 @@ main{padding:max(10px,env(safe-area-inset-top)) 10px 28px}
 .flour{display:block;margin:0 auto 4px;width:150px;height:14px}
 .date{font-weight:500;font-size:23px;margin:0}
 .time{font-size:19px;margin:0 0 6px}
+.cd{display:flex;justify-content:center;gap:8px;margin:4px 0 8px}
+.cu{width:58px;padding:6px 0 4px;border:1px solid #B08D4C;border-radius:6px;background:#FFFDF9;display:flex;flex-direction:column;align-items:center;line-height:1}
+.cu span{font-weight:500;font-size:24px;color:#1E2C4A;font-variant-numeric:tabular-nums}
+.cu small{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8A6A2B;margin-top:4px}
+.cd-msg{font-style:italic;font-size:19px;color:#6B1F2A;margin:4px 0 8px}
 .map-link{display:block;margin:4px auto 0;max-width:330px;text-decoration:none;color:inherit;border-radius:14px;-webkit-tap-highlight-color:transparent}
 .map-link:focus-visible{outline:2px solid #8A6A2B;outline-offset:4px}
 .map{display:block;width:100%;height:auto}
@@ -157,6 +162,10 @@ main{padding:max(10px,env(safe-area-inset-top)) 10px 28px}
 <svg class="flour" viewBox="0 0 150 14" aria-hidden="true"><path d="M4 7 C 40 0, 58 14, 75 7 C 92 0, 110 14, 146 7" fill="none" stroke="#B08D4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1.2" style="animation: sdraw 0.9s ease-in-out 6.9s both"></path></svg>
 <p class="date" style="animation: rise .8s ease-out 7.0s both">Sunday, 27 December 2026</p>
 <p class="time" style="animation: rise .8s ease-out 7.1s both">1:00 – 4:00 p.m.</p>
+<div class="cd" id="cd" role="timer" aria-live="off" style="animation: rise .8s ease-out 7.3s both">
+<div class="cu"><span id="cdd">--</span><small>Days</small></div><div class="cu"><span id="cdh">--</span><small>Hours</small></div><div class="cu"><span id="cdm">--</span><small>Min</small></div><div class="cu"><span id="cds">--</span><small>Sec</small></div>
+</div>
+<p class="cd-msg" id="cdmsg" hidden></p>
 <a class="map-link" href="https://maps.app.goo.gl/bV4CERyr1B5r9YuT7" target="_blank" rel="noopener" aria-label="Open Hill View Garden Farmhouse in Google Maps"><svg class="map" viewBox="0 16 320 120" role="img" aria-label="Illustrated route from Lahore along Barki Road to Hill View Garden Farmhouse">
 <defs><path id="rt" d="M60 104 C 96 112, 112 78, 150 84 C 188 90, 196 118, 232 108 C 252 102, 258 88, 262 80"></path></defs>
 <g fill="none" stroke="#8A6A2B" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" style="animation: fade 0.9s ease-out 7.2s both">
@@ -206,6 +215,19 @@ main{padding:max(10px,env(safe-area-inset-top)) 10px 28px}
   var ready=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
   ready.then(function(){ setTimeout(open, 3400); });
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){ open(); }
+  var T0=Date.UTC(2026,11,27,8,0,0), T1=Date.UTC(2026,11,27,11,0,0);
+  var cd=document.getElementById('cd'), msg=document.getElementById('cdmsg');
+  function pad(n){ return (n<10?'0':'')+n; }
+  function tick(){
+    var now=Date.now();
+    if(now>=T0){ cd.hidden=true; msg.hidden=false; msg.textContent= now<T1 ? 'Today, InshaAllah — we are celebrating now' : 'Alhamdulillah — thank you for celebrating with us'; return; }
+    var t=Math.floor((T0-now)/1000);
+    document.getElementById('cdd').textContent=Math.floor(t/86400);
+    document.getElementById('cdh').textContent=pad(Math.floor(t%86400/3600));
+    document.getElementById('cdm').textContent=pad(Math.floor(t%3600/60));
+    document.getElementById('cds').textContent=pad(t%60);
+  }
+  tick(); setInterval(tick,1000);
   if(/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)){
     var c=document.getElementById('cal'); c.href='walima.ics'; c.removeAttribute('target');
   }
