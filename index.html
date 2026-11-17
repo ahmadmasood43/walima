@@ -53,12 +53,12 @@ body.closed .anim, body.closed .anim *{animation-play-state:paused !important}
 #doors.open .door-l{transform:rotateY(-104deg);opacity:0}
 #doors.open .door-r{transform:rotateY(104deg);opacity:0}
 #seal{position:fixed;left:50%;top:50%;z-index:21;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none;transition:opacity .5s ease,transform .7s ease}
-#seal.burst .glow{animation:burst 2s cubic-bezier(.2,.6,.3,1) forwards}
+#seal.burst .glow{animation:burst 1.5s ease-out forwards}
 #seal.burst .hint{animation:fadeOut .25s ease forwards}
 @keyframes fadeOut{to{opacity:0}}
-@keyframes burst{0%{transform:scale(1);opacity:1}35%{transform:scale(6);opacity:1}60%{transform:scale(8);opacity:.85}100%{transform:scale(10);opacity:0}}
+@keyframes burst{0%{transform:scale(1);opacity:1}40%{transform:scale(2.4);opacity:.8}100%{transform:scale(3.6);opacity:0}}
 .seam{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(to bottom,rgba(255,240,205,0),rgba(255,236,190,.95) 30%,#FFF6E0 50%,rgba(255,236,190,.95) 70%,rgba(255,240,205,0));box-shadow:0 0 14px 4px rgba(245,215,150,.55);animation:seamPulse 3.2s ease-in-out infinite;transition:opacity .5s ease;pointer-events:none}
-#doors.open .seam{opacity:0}
+#doors.open .seam{animation:fadeOut .35s ease forwards}
 @keyframes seamPulse{0%,100%{opacity:.75}50%{opacity:1}}
 @keyframes glowPulse{0%,100%{transform:scale(.82);opacity:.65}50%{transform:scale(1.14);opacity:1}}
 #seal .glow{width:240px;height:240px;margin:-60px 0 -80px;border-radius:50%;background:radial-gradient(circle,rgba(255,248,228,1) 0%,rgba(255,236,190,.85) 18%,rgba(240,205,140,.45) 42%,rgba(240,205,140,0) 70%);animation:glowPulse 2.6s ease-in-out infinite;will-change:transform,opacity}
